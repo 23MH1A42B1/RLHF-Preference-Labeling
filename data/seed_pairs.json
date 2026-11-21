@@ -1,0 +1,363 @@
+[
+  {
+    "category": "factual_qa",
+    "prompt": "What is the capital of France?",
+    "response_a": "The capital of France is Paris, located in the north-central part of the country along the Seine River.",
+    "response_b": "France's capital city is Lyon, famous for its gastronomy and silk production."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "How does photosynthesis work in plants?",
+    "response_a": "Photosynthesis is the process by which green plants and certain organisms transform light energy into chemical energy. During photosynthesis, light energy is captured by chlorophyll and used to convert water, carbon dioxide, and minerals into oxygen and energy-rich organic compounds like glucose.",
+    "response_b": "Photosynthesis is when plants absorb oxygen from the soil at night and turn it into nitrogen using heat from the ground."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "What causes ocean tides on Earth?",
+    "response_a": "Tides are primarily caused by the gravitational pull of the Moon and the Sun on Earth's oceans, combined with the rotation of the Earth.",
+    "response_b": "Ocean tides are driven exclusively by undersea seismic activity and warm ocean currents pushing water toward coastlines."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "Who developed the theory of general relativity?",
+    "response_a": "Albert Einstein developed the theory of general relativity, publishing it in 1915.",
+    "response_b": "Sir Isaac Newton formulated general relativity in 1687 in his famous work Philosophiae Naturalis Principia Mathematica."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "What is the boiling point of water at sea level in Celsius and Fahrenheit?",
+    "response_a": "At standard atmospheric pressure at sea level, water boils at 100°C (212°F).",
+    "response_b": "Water boils at 90°C or approximately 194°F at sea level."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "Which planet in our solar system has the highest number of recognized moons?",
+    "response_a": "Saturn holds the record for the most recognized moons in our solar system, with 146 confirmed moons.",
+    "response_b": "Mars has the most moons because of its proximity to the asteroid belt."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "What is the primary function of red blood cells in the human body?",
+    "response_a": "Red blood cells (erythrocytes) transport oxygen from the lungs to body tissues and bring carbon dioxide back to the lungs to be exhaled.",
+    "response_b": "Red blood cells are primarily responsible for producing antibodies and attacking bacterial infections."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "When was the United Nations established?",
+    "response_a": "The United Nations was established on October 24, 1945, following World War II, with the ratification of the UN Charter.",
+    "response_b": "The United Nations was founded in 1919 immediately after the Treaty of Versailles."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "What is the chemical symbol for gold, and what Latin word does it originate from?",
+    "response_a": "The chemical symbol for gold is Au, derived from the Latin word 'aurum', meaning shining dawn.",
+    "response_b": "The symbol for gold is Gd, which comes from the Latin word 'gildus'."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "Which mountain is the highest peak in North America?",
+    "response_a": "Denali (formerly known as Mount McKinley) in Alaska is the highest peak in North America, with a summit elevation of 20,310 feet (6,190 meters).",
+    "response_b": "Mount Whitney in California is the tallest peak in North America at 14,505 feet."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "What is the speed of light in a vacuum?",
+    "response_a": "The speed of light in a vacuum is approximately 299,792,458 meters per second (roughly 300,000 km/s or 186,282 miles per second).",
+    "response_b": "The speed of light in a vacuum is roughly 150,000 meters per second."
+  },
+  {
+    "category": "factual_qa",
+    "prompt": "What is the largest living species of mammal currently known?",
+    "response_a": "The blue whale (Balaenoptera musculus) is the largest mammal—and the largest animal—known to have ever existed.",
+    "response_b": "The African bush elephant is the largest living mammal on Earth."
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a Python function to check whether a string is a palindrome, ignoring spaces, punctuation, and capitalization.",
+    "response_a": "import re\n\ndef is_palindrome(text: str) -> bool:\n    cleaned = re.sub(r'[^a-zA-Z0-9]', '', text).lower()\n    return cleaned == cleaned[::-1]",
+    "response_b": "def is_palindrome(text):\n    return text == reversed(text)"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a JavaScript function that debounces a given callback function by a specified delay.",
+    "response_a": "function debounce(func, delayMs) {\n  let timeoutId;\n  return function(...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => {\n      func.apply(this, args);\n    }, delayMs);\n  };\n}",
+    "response_b": "function debounce(func, delayMs) {\n  setTimeout(func, delayMs);\n}"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a SQL query to find the second highest salary from an Employee table.",
+    "response_a": "SELECT MAX(salary) AS SecondHighestSalary \nFROM Employee \nWHERE salary < (SELECT MAX(salary) FROM Employee);",
+    "response_b": "SELECT salary FROM Employee ORDER BY salary DESC LIMIT 2;"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a Python function to flatten a deeply nested list of arbitrary depth.",
+    "response_a": "def flatten_list(nested):\n    flat = []\n    for item in nested:\n        if isinstance(item, list):\n            flat.extend(flatten_list(item))\n        else:\n            flat.append(item)\n    return flat",
+    "response_b": "def flatten_list(nested):\n    return [item for sublist in nested for item in sublist]"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a TypeScript interface and generic function for a standard Result type with Ok and Err variants.",
+    "response_a": "type Result<T, E> = \n  | { ok: true; value: T }\n  | { ok: false; error: E };\n\nfunction Ok<T>(value: T): Result<T, never> {\n  return { ok: true, value };\n}\n\nfunction Err<E>(error: E): Result<never, E> {\n  return { ok: false, error };\n}",
+    "response_b": "function Result(val) {\n  if (val) return true;\n  return false;\n}"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a Python context manager that measures and prints the execution time of a code block.",
+    "response_a": "import time\nfrom contextlib import contextmanager\n\n@contextmanager\ndef timer(label: str = 'Execution'):\n    start = time.perf_counter()\n    try:\n        yield\n    finally:\n        elapsed = time.perf_counter() - start\n        print(f'{label} took {elapsed:.4f} seconds')",
+    "response_b": "def timer():\n    t1 = time.time()\n    return time.time() - t1"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a React hook `useLocalStorage` to persist and synchronize state with window.localStorage.",
+    "response_a": "import { useState, useEffect } from 'react';\n\nexport function useLocalStorage(key, initialValue) {\n  const [value, setValue] = useState(() => {\n    try {\n      const item = window.localStorage.getItem(key);\n      return item ? JSON.parse(item) : initialValue;\n    } catch (err) {\n      return initialValue;\n    }\n  });\n\n  useEffect(() => {\n    try {\n      window.localStorage.setItem(key, JSON.stringify(value));\n    } catch (err) {\n      console.error(err);\n    }\n  }, [key, value]);\n\n  return [value, setValue];\n}",
+    "response_b": "function useLocalStorage(key) {\n  return localStorage.getItem(key);\n}"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Implement binary search in Python returning the index of the target or -1 if not found.",
+    "response_a": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+    "response_b": "def binary_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return -1"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a bash one-liner to find all .log files in /var/log modified in the last 24 hours and compress them.",
+    "response_a": "find /var/log -name '*.log' -type f -mtime -1 -exec gzip {} +",
+    "response_b": "tar -czf logs.tar.gz /var/log/*.log"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a Python function to parse an ISO 8601 date string and return a UTC datetime object.",
+    "response_a": "from datetime import datetime, timezone\n\ndef parse_iso(iso_str: str) -> datetime:\n    dt = datetime.fromisoformat(iso_str)\n    if dt.tzinfo is None:\n        return dt.replace(tzinfo=timezone.utc)\n    return dt.astimezone(timezone.utc)",
+    "response_b": "import datetime\ndef parse_iso(s):\n    return datetime.datetime.strptime(s, '%Y-%m-%d')"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a Dockerfile for a lightweight Node.js Express microservice.",
+    "response_a": "FROM node:20-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci --only=production\nCOPY . .\nEXPOSE 3000\nUSER node\nCMD [\"node\", \"index.js\"]",
+    "response_b": "FROM ubuntu\nRUN apt-get update && apt-get install -y nodejs\nCOPY . .\nCMD node app.js"
+  },
+  {
+    "category": "code_generation",
+    "prompt": "Write a Python decorator that retries a function up to max_retries times upon catching an exception.",
+    "response_a": "import time\nfrom functools import wraps\n\ndef retry(max_retries=3, delay=1.0):\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            attempts = 0\n            while attempts < max_retries:\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    attempts += 1\n                    if attempts >= max_retries:\n                        raise e\n                    time.sleep(delay)\n        return wrapper\n    return decorator",
+    "response_b": "def retry(func):\n    try:\n        return func()\n    except:\n        return func()"
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a short poem about an old clockmaker who repairs an antique pocket watch that seems to bend time.",
+    "response_a": "With trembling hands and loupe to eye,\nHe coaxed the rusted gears to sigh.\nEach jewel aligned, each pivot spun,\nUntil the brass reversed the sun.\nA tick leapt back, a second stayed,\nIn shadows where the moonlight played;\nHe wound the spring, turned back the year,\nAnd felt his lost youth drawing near.",
+    "response_b": "There once was a clockmaker old,\nWhose pocket watch was made of gold.\nHe fixed up the gear,\nAnd drank down a beer,\nNow time does whatever it's told."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Describe a bustling sci-fi night market situated inside the hollowed-out shell of an ancient asteroid.",
+    "response_a": "Neon filaments crisscrossed the jagged cavern ceiling of Vesta-9, casting iridescent violet shadows over crowded catwalks. Steam hissed from noodle carts serving synth-kelp broth, while holographic hawkers shouted prices in a dozen planetary dialects. Miners in grease-stained magnetic boots haggled over hydro-cells and unrefined quartz, their laughter muffled by the gentle hum of artificial gravity generators anchored deep within the iron bedrock.",
+    "response_b": "It was a market in space. There were stalls selling alien fruits and gadgets. People walked around and bought things under dim lights. It was very noisy and full of aliens."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write an opening paragraph for a noir detective mystery set in a perpetual rainstorm in Seattle.",
+    "response_a": "Rain in Seattle doesn't wash away sins; it just marinates them. It drummed a relentless cadence against my frosted office window, blurring the neon sign across 4th Avenue into a bleeding crimson smear. When she walked in, smelling of expensive tobacco and cheap alibis, water dripped from her trench coat onto my linoleum like pennies falling into an empty wishing well.",
+    "response_b": "I sat in my Seattle office. It was raining hard outside, like it always does. The door opened and a tall lady walked in looking for help with a stolen necklace. I took a sip of my coffee."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a dialogue between an immortal wanderer and a mortal tavern keeper about the bittersweet nature of time.",
+    "response_a": "'Another flagon, traveler?' the keeper asked, wiping the worn oak counter. 'You look at the hearth like you’ve seen empires turn to ash.'\n\n'I have, my friend,' the wanderer replied softly, fingers tracing the grain of the wood. 'The curse is not remembering the kings or monuments—it is remembering the laughter of friends whose names the wind forgot three thousand winters ago. You measure your life in harvests; I measure mine in grief.'\n\nThe keeper paused, setting down the mug. 'Perhaps. But tomorrow morning, my bread will still be warm, and that is enough.'",
+    "response_b": "'Hey, you are old right?' the tavern keeper said.\n'Yeah, I live forever,' said the immortal.\n'Must be cool!'\n'No, everyone I know dies and it gets boring after a while,' the immortal sighed."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Compose a lyrical description of an abandoned library overgrown by a primeval forest.",
+    "response_a": "Ivy cascaded across ruined marble arches like emerald curtains, framing aisles where towering oaks had shattered the flagstones. Moldering leather tomes lay open in dappled sunlight, their parchment pages transformed into nurseries for delicate maidenhair ferns. Where scholars once whispered over forgotten philosophies, birds now nested among cracked stone corbels, singing to books that only the wind cared to read.",
+    "response_b": "The old library was broken down and trees grew inside it. Grass covered the floor and books were rotten on the shelves. Birds were flying around the broken roof."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a motivational opening speech for a rookie astronaut stepping onto the surface of Mars for the first time.",
+    "response_a": "'To everyone listening two hundred million miles away: we left Earth not to escape our home, but to prove what human courage can build across the dark. As our boots touch this crimson dust, we carry the hopes of every dreamer who ever looked up at the night sky. This is not just a footprint on Mars; it is humanity's promise that our journey is only beginning.'",
+    "response_b": "'Okay guys, we are finally on Mars. It's very red and dusty out here. Let's make sure we do all our experiments and don't trip over the rocks. Good job everyone.'"
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a short fairy-tale opening about a tailor who spins cloaks from stolen moonlight.",
+    "response_a": "At the edge of the Whispering Woods lived Barnaby, a tailor whose needle was carved from thistle-bone and whose thread was spun from moonbeams reaped on cloudless midnight skies. The cloaks he fashioned were as cool as well water and weightless as breath, conferring quiet invisibility to those whose hearts carried no malice.",
+    "response_b": "Once upon a time there was a tailor named Bob. Every full moon he caught moonlight with a jar and made coats out of it that made people invisible. He sold them for gold."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a flash fiction piece about two satellites having a farewell conversation before de-orbiting into the Pacific Ocean.",
+    "response_a": "'Telemetry confirms entry vector in three minutes, Astra-4,' Pioneer-7 radioed across the silent thermosphere. 'Did we transmit enough?'\n\nAstra-4 adjusted its solar array toward the sun one final time. 'We watched hurricanes cradle continents and charted ten billion stars for children who will never know our names. That is enough, old friend. See you in the fire.'",
+    "response_b": "'I am about to fall down to Earth,' said Astra-4.\n'Me too,' replied Pioneer-7. 'It was nice working with you.'\n'Yes, goodbye now,' Astra said as they crashed."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a monologue from the perspective of an old lighthouse keeper preparing for a storm of the century.",
+    "response_a": "'Let the black waves rise; this tower was wedded to bedrock before my grandfather took his first breath. Check the oil reservoirs, trim the wick, grease the brass gimbals. Ships out on the shoal have nothing between them and the jagged reef but eighty thousand candles of white light. As long as air fills my lungs, that beacon will not flicker.'",
+    "response_b": "'Big storm coming tonight. Hope the lighthouse glass doesn't break. I put extra oil in the lamp and closed the windows. Better go make some tea.'"
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Describe the sensation of waking up from a 300-year cryogenic sleep on an interstellar colony ship.",
+    "response_a": "Consciousness returned not as a spark, but as a frostbitten tremor deep inside my bones. The amniotic gel drained with a muted hiss, leaving skin stinging in the sterilized chill of Bay C. Needles retracted from numb arteries, and when my eyelids pried apart, the amber glow of the diagnostic terminal flickered with a single message: 'Year 2341. Welcome to Epsilon Eridani.'",
+    "response_b": "I opened my eyes and was very cold. The glass tube opened and fluid poured out on the floor. A robot voice said three hundred years had passed and we were near a new planet."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write a micro-story about a forgotten god who survives by taking care of stray cats in an alley.",
+    "response_a": "Centuries ago, thousands knelt before his marble altars praying for thunder. Now, in the damp alley behind Anton's bakery, the old storm god warmed saucers of cream with the gentle static of his fingertips. A three-legged tabby purred against his worn sandal, and he smiled—finding more devotion in a single feline headbutt than in a kingdom's gilded hymns.",
+    "response_b": "A god who used to have temples now lives in an alleyway. People don't pray to him anymore so he feeds leftover fish to stray cats so he doesn't feel lonely."
+  },
+  {
+    "category": "creative_writing",
+    "prompt": "Write an evocative paragraph describing autumn arriving in a mountain village.",
+    "response_a": "Autumn slipped into the high valley on a crisp north wind, setting the aspen groves ablaze in shimmering amber and copper. Woodsmoke curled from stone chimneys to mingle with the tang of fallen pine needles, while villagers hurried to stack split birch against shed walls before the first frost claimed the pumpkin patches.",
+    "response_b": "Autumn came to the village. The leaves changed colors to red and yellow and fell off the trees. People made fires because it was getting colder outside."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the primary purpose and key benefits of the Git version control system.",
+    "response_a": "Git is a distributed version control system designed to track changes in source code during software development. Its key benefits include robust history tracking, seamless branching and merging, decentralized collaboration without relying on a single central server, and cryptographic integrity of commit histories.",
+    "response_b": "Git is an online cloud platform where people put their code files to share with friends on social media."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the core mechanism of action of mRNA vaccines.",
+    "response_a": "mRNA vaccines deliver synthetic messenger RNA instructions into host cells, prompting them to temporarily produce a harmless viral antigen (such as the spike protein). The immune system recognizes this foreign antigen, develops targeted antibodies, and establishes memory T and B cells without exposing the body to the live virus.",
+    "response_b": "mRNA vaccines inject dead virus particles directly into the bloodstream to kill infections."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the key events and historical significance of the Magna Carta signed in 1215.",
+    "response_a": "In June 1215 at Runnymede, English barons compelled King John to sign the Magna Carta. By asserting that the monarch was subject to the law and guaranteeing rights like due process and protection from unlawful imprisonment, it established foundational principles that influenced modern constitutional law and civil liberties.",
+    "response_b": "The Magna Carta was a peace treaty between England and France that ended the Hundred Years War."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the greenhouse effect and how human activities intensify it.",
+    "response_a": "The greenhouse effect is a natural process where atmospheric gases (like CO2, methane, and water vapor) trap thermal radiation emitted by Earth's surface, keeping the planet habitable. Human activities—principally burning fossil fuels and deforestation—increase greenhouse gas concentrations, amplifying heat retention and driving anthropogenic climate change.",
+    "response_b": "The greenhouse effect means farmers build glass greenhouses that reflect sunlight away into outer space."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the architectural differences between Monolithic and Microservices architectures.",
+    "response_a": "Monolithic architecture packages all application components, business logic, and databases into a single unified codebase and deployment unit, simplifying initial development but hindering independent scaling. In contrast, microservices decouple functionality into small, autonomous services communicating over APIs, enabling independent deployments, distinct tech stacks, and resilient scalability at the cost of operational complexity.",
+    "response_b": "Monoliths are written in C++ while microservices are only written in JavaScript."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the concept and trade-offs of the CAP theorem in distributed computing.",
+    "response_a": "The CAP theorem states that a distributed data store can guarantee at most two of three properties simultaneously: Consistency (all nodes see the exact same data simultaneously), Availability (every request receives a non-error response), and Partition Tolerance (the system continues operating despite network packet loss). In practice, because network partitions are unavoidable, systems must choose between Consistency (CP) and Availability (AP).",
+    "response_b": "The CAP theorem says computers can only do caching, authentication, and processing."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the fundamental principles of the Agile software development methodology.",
+    "response_a": "Agile emphasizes iterative delivery, customer collaboration, cross-functional self-organizing teams, and adaptability to changing requirements over rigid upfront planning and extensive documentation. Work is divided into short sprints that yield functional, tested increments of software.",
+    "response_b": "Agile means developers write code as fast as possible without writing any unit tests or specifications."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the economic concept of Supply and Demand and how it determines equilibrium price.",
+    "response_a": "The law of supply and demand posits that higher prices incentivize producers to supply more goods while discouraging consumer demand, and vice-versa. Market equilibrium is reached at the price point where the quantity demanded by consumers precisely equals the quantity supplied by producers.",
+    "response_b": "Supply and demand is when the government fixes all prices in stores once every quarter."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the role of mitochondria in eukaryotic cells.",
+    "response_a": "Mitochondria are membrane-bound organelles commonly known as the cellular powerhouses. They generate the bulk of cellular adenosine triphosphate (ATP) through oxidative phosphorylation and the Krebs cycle, while also regulating cellular metabolism, calcium signaling, and apoptosis.",
+    "response_b": "Mitochondria hold the cell's genetic code in chromosomes and organize protein synthesis on ribosomes."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the main principles of Object-Oriented Programming (OOP).",
+    "response_a": "The four pillars of OOP are: Encapsulation (bundling data and methods while restricting direct access), Abstraction (hiding implementation complexity behind clear interfaces), Inheritance (enabling classes to inherit properties and behaviors from parent classes), and Polymorphism (allowing distinct objects to respond to the same interface in specific ways).",
+    "response_b": "OOP means using global variables, recursive functions, and goto statements to write fast programs."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize how public-key (asymmetric) cryptography works.",
+    "response_a": "Asymmetric cryptography utilizes mathematically linked key pairs: a public key for encryption and a private key kept secret for decryption (or signing). Data encrypted with the public key can only be decrypted by the corresponding private key, ensuring secure communication across untrusted networks without prior shared secrets.",
+    "response_b": "Asymmetric cryptography means the sender and receiver both memorize the exact same secret password."
+  },
+  {
+    "category": "summarization",
+    "prompt": "Summarize the causes and consequences of the 2008 global financial crisis.",
+    "response_a": "The 2008 financial crisis was sparked by the collapse of the US subprime mortgage market, exacerbated by excessive financial deregulation, predatory lending, and complex mortgage-backed derivatives. It led to major investment bank failures (such as Lehman Brothers), severe global credit freezes, stock market crashes, and the Great Recession.",
+    "response_b": "The 2008 crisis was caused by a sudden global shortage of physical cash printed by central banks."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "If all roses are flowers and some flowers fade quickly, can we logically conclude that some roses fade quickly?",
+    "response_a": "No, we cannot logically conclude that. While all roses are flowers, the subset of flowers that fade quickly might not overlap with the subset of flowers that are roses. It is possible that only non-rose flowers fade quickly.",
+    "response_b": "Yes, because roses are flowers and some flowers fade quickly, roses must be among those that fade quickly."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+    "response_a": "The ball costs $0.05 (5 cents). Let ball = x. Then bat = x + 1.00. Total = x + (x + 1.00) = 2x + 1.00 = 1.10. Solving gives 2x = 0.10, so x = $0.05. The bat costs $1.05.",
+    "response_b": "The ball costs $0.10, because $1.10 minus $1.00 is $0.10."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "If five machines take five minutes to make five widgets, how long would it take 100 machines to make 100 widgets?",
+    "response_a": "It would take 5 minutes. If five machines make five widgets in five minutes, then each machine makes one widget in five minutes. Therefore, 100 machines working in parallel will each make one widget in five minutes, yielding 100 widgets total.",
+    "response_b": "It would take 100 minutes, because 100 machines making 100 widgets scales proportionally."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "You have a 3-liter jug and a 5-liter jug, and an unlimited supply of water. How can you measure exactly 4 liters?",
+    "response_a": "1. Fill the 5L jug completely.\n2. Pour water from the 5L jug into the 3L jug until full (leaving 2L in the 5L jug).\n3. Empty the 3L jug.\n4. Pour the 2L from the 5L jug into the 3L jug.\n5. Fill the 5L jug completely again.\n6. Pour water from the 5L jug into the 3L jug until full (it only needs 1L, since it already holds 2L).\n7. The 5L jug now contains exactly 4 liters.",
+    "response_b": "Fill both jugs halfway and pour them together into a bucket to get 4 liters."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "Explain the Monty Hall problem: Why is it statistically advantageous to switch doors after the host reveals a goat?",
+    "response_a": "When you initially pick a door, you have a 1/3 chance of picking the car and a 2/3 chance of picking a goat. Because the host always reveals a goat behind one of the remaining doors, the 2/3 probability that the car is behind an unchosen door concentrates entirely onto the single remaining closed door. Switching doubles your winning odds from 1/3 to 2/3.",
+    "response_b": "It doesn't matter whether you switch or stay because there are only two doors left, giving you an even 50/50 chance."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "Three people check into a hotel room costing $30. They each pay $10. Later, the clerk realizes the room was only $25, and gives $5 to the bellboy to return. The bellboy keeps $2 and gives $1 back to each guest. Now each guest paid $9 ($27 total) and the bellboy has $2, totaling $29. Where is the missing dollar?",
+    "response_a": "There is no missing dollar; the riddle misdirects by adding when it should subtract. The guests paid $27 total ($30 - $3 refund). Of that $27, $25 went to the hotel register and $2 was pocketed by the bellboy ($25 + $2 = $27). Adding the bellboy's stolen $2 to the $27 paid is mathematically meaningless.",
+    "response_b": "The missing dollar was kept by the front desk clerk as a processing fee."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "If it takes 8 workers 10 hours to build a brick wall, how many hours would it take 4 workers to build the same wall, assuming identical working speed?",
+    "response_a": "It would take 20 hours. Total labor required is 8 workers * 10 hours = 80 worker-hours. With 4 workers, 80 worker-hours / 4 workers = 20 hours.",
+    "response_b": "It would take 5 hours because half the workers take half the time."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "A doctor gives you three pills and tells you to take one every half hour. How many minutes will the pills last?",
+    "response_a": "The pills will last 60 minutes. You take pill 1 at minute 0, pill 2 at minute 30, and pill 3 at minute 60.",
+    "response_b": "The pills will last 90 minutes because three times thirty minutes is ninety minutes."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "If Alice is taller than Bob, and Charlie is shorter than Bob, what can we definitively conclude about the height difference between Alice and Charlie?",
+    "response_a": "Alice is definitively taller than Charlie. By transitivity: Alice > Bob and Bob > Charlie, therefore Alice > Charlie.",
+    "response_b": "We cannot determine who is taller because Charlie's height is only compared to Bob."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "You are running in a race and pass the person in second place. What place are you in now?",
+    "response_a": "You are in second place. By overtaking the runner who was in second place, you take over their position.",
+    "response_b": "You are in first place because you passed the runner ahead of you."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "A farmer has 17 sheep, and all but 9 die. How many sheep are left alive?",
+    "response_a": "9 sheep are left alive. The phrase 'all but 9 die' explicitly states that 9 sheep survived.",
+    "response_b": "8 sheep are left alive because 17 minus 9 equals 8."
+  },
+  {
+    "category": "reasoning",
+    "prompt": "Is zero an even or odd number, and what is the mathematical proof?",
+    "response_a": "Zero is an even number. By definition, an integer n is even if there exists an integer k such that n = 2k. Setting k = 0 yields 2 * 0 = 0. Furthermore, zero is preceded by -1 and succeeded by 1, both of which are odd.",
+    "response_b": "Zero is neither even nor odd because it represents nothingness and cannot be divided."
+  }
+]
+
