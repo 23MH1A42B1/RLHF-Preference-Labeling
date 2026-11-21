@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RLHF Preference Labeling & Data Alignment Tool</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%22><text y=%2222%22 font-size=%2220%22>⚖️</text></svg>">
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="brand-badge">RLHF Core</span>
+      <h1 class="nav-title">Preference Alignment Studio</h1>
+    </div>
+
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="labeling" id="tab-btn-labeling">
+        🏷️ Labeling Studio
+      </button>
+      <button class="tab-btn" data-tab="analytics" id="tab-btn-analytics">
+        📊 Analytics & Agreement
+      </button>
+      <button class="tab-btn" data-tab="export" id="tab-btn-export">
+        📦 Dataset Export
+      </button>
+    </nav>
+
+    <div class="nav-user">
+      <div class="annotator-select-container" title="Current Annotator Identity">
+        <span class="annotator-label">Annotator:</span>
+        <input type="text" id="annotator-id-input" class="annotator-input" value="annotator_1" placeholder="Enter ID">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace Content -->
+  <main class="main-content">
+
+    <!-- TAB 1: LABELING STUDIO -->
+    <section id="panel-labeling" class="tab-panel active">
+      <!-- Control Bar: Progress & Filter -->
+      <div class="control-bar">
+        <div class="progress-section">
+          <div class="progress-info">
+            <span id="progress-text">Labeled 0 of 0 pairs</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div id="progress-fill" class="progress-bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <label for="category-filter" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">Category:</label>
+          <select id="category-filter" class="filter-select">
+            <option value="">All Categories (50+)</option>
+            <option value="factual_qa">Factual QA</option>
+            <option value="code_generation">Code Generation</option>
+            <option value="creative_writing">Creative Writing</option>
+            <option value="summarization">Summarization</option>
+            <option value="reasoning">Reasoning</option>
+          </select>
+        </div>
+
+        <div class="shortcut-legend">
+          <span>Shortcuts:</span>
+          <span><span class="kbd-badge">A</span> Left</span>
+          <span><span class="kbd-badge">B</span> Right</span>
+          <span><span class="kbd-badge">T</span> Tie</span>
+          <span><span class="kbd-badge">S</span> Skip</span>
+        </div>
+      </div>
+
+      <!-- Active Pair Container -->
+      <div id="pair-container">
+        <!-- Prompt Box -->
+        <div class="prompt-card">
+          <div class="prompt-meta">
+            <span id="pair-category" class="category-tag">Factual QA</span>
+            <span id="pair-id" class="pair-id-tag">Pair #1</span>
+          </div>
+          <h2 id="pair-prompt" class="prompt-text">Loading next prompt pair...</h2>
+        </div>
+
+        <!-- Pairwise Side-by-Side Responses -->
+        <div class="comparison-grid">
+          <!-- Response A Card -->
+          <div class="response-card" id="card-response-a">
+            <div class="response-header">
+              <span class="response-title">
+                <span class="response-badge-a">A</span> Response A
+              </span>
+              <span class="kbd-badge">Key [A]</span>
+            </div>
+            <div id="text-response-a" class="response-content">Loading...</div>
+            <button id="btn-choose-a" class="action-btn btn-choose-a">
+              👍 Response A is Better
+            </button>
+          </div>
+
+          <!-- Response B Card -->
+          <div class="response-card" id="card-response-b">
+            <div class="response-header">
+              <span class="response-title">
+                <span class="response-badge-b">B</span> Response B
+              </span>
+              <span class="kbd-badge">Key [B]</span>
+            </div>
+            <div id="text-response-b" class="response-content">Loading...</div>
+            <button id="btn-choose-b" class="action-btn btn-choose-b">
+              👍 Response B is Better
+            </button>
+          </div>
+        </div>
+
+        <!-- Secondary Actions (Tie / Skip) -->
+        <div class="secondary-actions">
+          <button id="btn-choose-tie" class="btn-secondary btn-tie">
+            🤝 Equal Quality / Tie <span class="kbd-badge">T</span>
+          </button>
+          <button id="btn-choose-skip" class="btn-secondary btn-skip">
+            ⏭️ Skip Pair <span class="kbd-badge">S</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Completed / All Done View -->
+      <div id="completed-container" class="completed-card" style="display: none;">
+        <div class="completed-icon">🎉</div>
+        <h2 class="completed-title">All Pairs Labeled!</h2>
+        <p class="completed-desc">
+          You have completed all available prompt pairs for this annotator.
+          Switch annotator ID in the header to simulate multiple raters or inspect agreement metrics!
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <button id="btn-go-analytics" class="action-btn btn-choose-a" style="width: auto;">
+            📊 View Analytics & Agreement
+          </button>
+          <button id="btn-go-export" class="action-btn btn-choose-b" style="width: auto;">
+            📦 Export Labeled Dataset
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ANALYTICS & INTER-RATER AGREEMENT -->
+    <section id="panel-analytics" class="tab-panel">
+      <div class="analytics-grid">
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-label">Total Completed Labels</div>
+          <div id="kpi-total-labels" class="kpi-value">0</div>
+          <div class="kpi-subtext">Across all annotators</div>
+        </div>
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-label">Inter-Rater Agreement</div>
+          <div id="kpi-agreement-rate" class="kpi-value">100%</div>
+          <div id="kpi-agreement-desc" class="kpi-subtext">Consensus among annotators</div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-label">Multi-Rated Pairs</div>
+          <div id="kpi-multi-pairs" class="kpi-value">0</div>
+          <div class="kpi-subtext">Pairs with > 1 judgment</div>
+        </div>
+
+        <div class="kpi-card kpi-orange">
+          <div class="kpi-label">Cohen's Kappa (κ)</div>
+          <div id="kpi-kappa" class="kpi-value">1.00</div>
+          <div class="kpi-subtext">Chance-adjusted agreement</div>
+        </div>
+      </div>
+
+      <!-- Label Distribution Bar Visualization -->
+      <div class="chart-card">
+        <div class="card-title">
+          <span>Preference Label Distribution</span>
+          <button id="btn-refresh-analytics" class="btn-secondary" style="padding: 0.35rem 0.8rem;">
+            🔄 Refresh Metrics
+          </button>
+        </div>
+
+        <div class="dist-bar-group">
+          <div class="dist-label-row">
+            <span>Response A Preferred</span>
+            <span id="dist-count-a">0 (0%)</span>
+          </div>
+          <div class="dist-bar-track">
+            <div id="dist-bar-a" class="dist-bar-fill fill-a" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="dist-bar-group">
+          <div class="dist-label-row">
+            <span>Response B Preferred</span>
+            <span id="dist-count-b">0 (0%)</span>
+          </div>
+          <div class="dist-bar-track">
+            <div id="dist-bar-b" class="dist-bar-fill fill-b" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="dist-bar-group">
+          <div class="dist-label-row">
+            <span>Tie / Indifferent</span>
+            <span id="dist-count-tie">0 (0%)</span>
+          </div>
+          <div class="dist-bar-track">
+            <div id="dist-bar-tie" class="dist-bar-fill fill-tie" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="dist-bar-group">
+          <div class="dist-label-row">
+            <span>Skipped</span>
+            <span id="dist-count-skip">0 (0%)</span>
+          </div>
+          <div class="dist-bar-track">
+            <div id="dist-bar-skip" class="dist-bar-fill fill-skip" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Breakdown Table -->
+      <div class="chart-card">
+        <div class="card-title">Category Breakdown</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Total Labels</th>
+              <th>Chose A</th>
+              <th>Chose B</th>
+              <th>Ties</th>
+              <th>Skips</th>
+            </tr>
+          </thead>
+          <tbody id="category-table-body">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading category metrics...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: DATA EXPORT -->
+    <section id="panel-export" class="tab-panel">
+      <div class="export-card">
+        <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">
+          Export RLHF Reward Model Training Dataset
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+          Export labeled prompt-preference pairs formatted according to standard JSONL RLHF specifications
+          <code>{"prompt": "...", "chosen": "...", "rejected": "...", "metadata": {...}}</code> ready for Hugging Face TRL RewardTrainer.
+        </p>
+
+        <div class="export-controls">
+          <label for="export-category-filter" style="font-weight: 600; font-size: 0.9rem;">
+            Category Filter:
+          </label>
+          <select id="export-category-filter" class="filter-select">
+            <option value="">All Categories (Export Complete Dataset)</option>
+            <option value="factual_qa">Factual QA</option>
+            <option value="code_generation">Code Generation</option>
+            <option value="creative_writing">Creative Writing</option>
+            <option value="summarization">Summarization</option>
+            <option value="reasoning">Reasoning</option>
+          </select>
+
+          <a id="download-export-btn" href="/api/export" class="action-btn btn-choose-a" style="width: auto; text-decoration: none;" download="labels.jsonl">
+            📥 Download labels.jsonl
+          </a>
+        </div>
+
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">
+          Live JSONL Dataset Preview:
+        </h3>
+        <pre id="jsonl-preview" class="json-preview">Loading export preview...</pre>
+
+        <div style="background-color: var(--bg-tertiary); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem;">
+            🔬 Downstream Pipeline Validation Stub
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+            You can validate this downloaded dataset using the downstream consumer validator:
+          </p>
+          <div class="code-snippet">python downstream/validate_data.py labels.jsonl</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>
+
